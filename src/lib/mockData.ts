@@ -139,23 +139,23 @@ export const mockStudies = [
     icon: '📑',
     type: 'project'
   }
-];
+]
 
 // 현재 날짜 기준으로 이번 주 화요일 찾기
-const today = new Date();
-const tuesday = new Date(today);
-tuesday.setDate(today.getDate() + ((2 + 7 - today.getDay()) % 7));
+const today = new Date()
+const tuesday = new Date(today)
+tuesday.setDate(today.getDate() + ((2 + 7 - today.getDay()) % 7))
 
 export const mockReservations = [
   {
     id: '1',
     title: '알고리즘 모각코',
     start: new Date(tuesday.setHours(15, 0, 0)), // 화요일 15시
-    end: new Date(tuesday.setHours(17, 0, 0)),   // 화요일 17시
+    end: new Date(tuesday.setHours(17, 0, 0)), // 화요일 17시
     userId: 'admin',
     roomId: '301-BAEKDU'
   }
-];
+]
 
 export const mockSessions = [
   {
@@ -238,7 +238,7 @@ export const mockSessions = [
     icon: '🔒',
     type: 'session'
   }
-];
+]
 
 export const mockBooks = [
   {
@@ -301,7 +301,7 @@ export const mockBooks = [
     publisher: '한빛미디어',
     publishedYear: 2020
   }
-];
+]
 
 export const mockNotices = [
   {
@@ -349,17 +349,17 @@ export const mockNotices = [
         <li>참고사항: 최대 2개까지 참여 가능</li>
       </ul>
     `
-  },
+  }
   // ... more notices
-];
+]
 
 export interface WeeklyProgress {
-  week: number;
-  title: string;
-  originalTitle?: string;  // 원래 계획된 제목
-  status: 'completed' | 'current' | 'upcoming';
-  description: string;
-  originalDescription?: string;  // 원래 계획된 설명
+  week: number
+  title: string
+  originalTitle?: string // 원래 계획된 제목
+  status: 'completed' | 'current' | 'upcoming'
+  description: string
+  originalDescription?: string // 원래 계획된 설명
 }
 
 export const mockMyActivities = [
@@ -376,7 +376,7 @@ export const mockMyActivities = [
     members: [
       { id: '1', name: '김코밋', isLeader: true },
       { id: '2', name: '이알고', isLeader: false },
-      { id: '3', name: '박코딩', isLeader: false },
+      { id: '3', name: '박코딩', isLeader: false }
     ],
     currentWeek: 3,
     weeklyProgress: [
@@ -449,7 +449,7 @@ export const mockMyActivities = [
     members: [
       { id: '1', name: '최깃헙', isLeader: true },
       { id: '2', name: '김코밋', isLeader: false },
-      { id: '4', name: '정버전', isLeader: false },
+      { id: '4', name: '정버전', isLeader: false }
     ],
     currentWeek: 3,
     weeklyProgress: [
@@ -503,7 +503,7 @@ export const mockMyActivities = [
       }
     ]
   }
-];
+]
 
 export const mockPosts = [
   {
@@ -511,7 +511,8 @@ export const mockPosts = [
     activityId: 'study1',
     author: '김코밋',
     date: '2024-03-15',
-    content: '오늘 스터디에서는 DP 문제를 풀어보았습니다. 다들 수고하셨어요! 다음 주는 그리디 알고리즘을 다뤄볼 예정입니다.'
+    content:
+      '오늘 스터디에서는 DP 문제를 풀어보았습니다. 다들 수고하셨어요! 다음 주는 그리디 알고리즘을 다뤄볼 예정입니다.'
   },
   {
     id: 'p2',
@@ -520,7 +521,7 @@ export const mockPosts = [
     date: '2024-03-14',
     content: 'Git rebase와 merge의 차이점에 대해 설명한 좋은 자료를 공유합니다. [링크]'
   }
-];
+]
 
 export const mockEvents = [
   {
@@ -547,4 +548,4 @@ export const mockEvents = [
     type: 'study',
     color: '#4F46E5'
   }
-]; 
+]

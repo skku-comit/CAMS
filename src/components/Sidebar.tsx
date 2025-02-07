@@ -1,8 +1,8 @@
-'use client';
-import React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import clsx from 'clsx';
+'use client'
+import React from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import clsx from 'clsx'
 
 const navigation = [
   { name: '홈', href: '/' },
@@ -10,11 +10,11 @@ const navigation = [
   { name: '개설 현황', href: '/courses' },
   { name: '시설 예약', href: '/facilities' },
   { name: '도서 대출', href: '/books' },
-  { name: '공지사항', href: '/notices' },
-];
+  { name: '공지사항', href: '/notices' }
+]
 
 export default function Sidebar() {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   return (
     <div className="fixed left-0 top-0 h-full w-64 bg-secondary text-white">
@@ -32,7 +32,7 @@ export default function Sidebar() {
               'block px-6 py-3 text-sm',
               pathname === item.href
                 ? 'bg-primary text-white'
-                : 'text-gray-300 hover:bg-primary-dark hover:text-white transition-colors'
+                : 'text-gray-300 transition-colors hover:bg-primary-dark hover:text-white'
             )}
           >
             {item.name}
@@ -40,5 +40,5 @@ export default function Sidebar() {
         ))}
       </nav>
     </div>
-  );
-} 
+  )
+}

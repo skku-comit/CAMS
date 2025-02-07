@@ -8,6 +8,6 @@ export const mockStudies = [
     status: '모집중',
     icon: '👩‍💻',
     type: 'study'
-  },
+  }
   // ... rest of the studies
-]; 
+]

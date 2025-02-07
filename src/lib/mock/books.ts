@@ -8,6 +8,6 @@ export const mockBooks = [
     description: '애자일 소프트웨어 장인 정신',
     publisher: '인사이트',
     publishedYear: 2013
-  },
+  }
   // ... rest of the books
-]; 
+]

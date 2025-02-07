@@ -8,6 +8,6 @@ export const mockSessions = [
     status: '모집중',
     icon: '🌳',
     type: 'session'
-  },
+  }
   // ... rest of the sessions
-]; 
+]
