@@ -7,7 +7,7 @@ export default function HomePage() {
     <div className="mx-auto max-w-6xl space-y-12 px-8 py-6">
       {/* 환영 섹션 */}
       <div>
-        <h1 className="mb-3 text-2xl font-bold">유지범님 환영합니다! 👋</h1>
+        <h1 className="mb-3 text-2xl font-bold">박코딩님 환영합니다! 👋</h1>
         <div className="space-y-3">
           <p className="text-[15px] leading-relaxed text-gray-600">
             <span className="font-medium text-primary">COMIT</span>은 코딩을 처음 시작하는 분들부터 실무 경험이 있는

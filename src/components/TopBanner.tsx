@@ -23,7 +23,7 @@ export default function TopBanner() {
         <div className="h-4 w-px bg-gray-200"></div>
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center text-[13px] font-medium text-gray-700">
-            유
+            박
           </div>
           <button 
             onClick={() => alert('아직 클릭가능한 버튼이 아닙니다.')} 
