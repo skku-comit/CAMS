@@ -19,26 +19,26 @@ export default function CoursesPage() {
   })
 
   return (
-    <div className="mx-auto max-w-6xl px-4 md:px-6 lg:px-8 py-4 md:py-6">
-      <div className="mb-6 md:mb-8">
-        <h1 className="mb-3 md:mb-4 text-xl md:text-2xl font-bold">개설 현황</h1>
-        <p className="text-[13px] text-gray-600">
+    <div className="mx-auto max-w-6xl px-0 md:px-6 lg:px-8 py-4 md:py-6">
+      <div className="px-0 mb-6 md:mb-8">
+        <h1 className="mb-3 md:mb-4 text-xl md:text-2xl font-bold px-4">개설 현황</h1>
+        <p className="text-[13px] text-gray-600 px-4">
           현재 모집 중인 스터디와 프로젝트를 확인해보세요.
         </p>
 
-        <div className="mt-6 md:mt-8">
+        <div className="mt-4 md:mt-6">
           <Link
             href="/courses/create"
-            className="inline-flex items-center gap-1 text-[13px] text-primary hover:text-primary-dark hover:underline"
+            className="inline-flex items-center gap-0 text-[13px] text-primary hover:text-primary-dark hover:underline"
           >
-            <span>원하는 활동이 없으신가요? 새로운 스터디/세션 만들기</span>
-            <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span className='pl-4'>원하는 활동이 없으신가요? 새로운 스터디/세션 만들기</span>
+            <svg className="h-3 w-3 relative -top-[1px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </Link>
         </div>
 
-        <div className="mt-4 flex gap-2 md:gap-4 border-b overflow-x-auto scrollbar-hide">
+        <div className="mt-2 md:mt-4 flex gap-2 md:gap-4 border-b overflow-x-auto scrollbar-hide">
           <button
             onClick={() => setActiveTab('all')}
             className={clsx(

@@ -5,9 +5,9 @@ import { mockNotices } from '@/lib/mockData'
 
 export default function NoticesPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 md:px-6 lg:px-8 py-4 md:py-6">
-      <h1 className="mb-3 md:mb-4 text-xl md:text-2xl font-bold">공지사항</h1>
-      <p className="mb-6 md:mb-8 text-[13px] text-gray-600">
+    <div className="mx-auto max-w-5xl px-0 md:px-6 lg:px-8 py-4 md:py-6">
+      <h1 className="mb-3 md:mb-4 text-xl md:text-2xl font-bold px-4">공지사항</h1>
+      <p className="mb-6 md:mb-8 text-[13px] text-gray-600 px-4">
         COMIT 내 활동 관련 운영 정책들을 확인해보세요!
       </p>
 

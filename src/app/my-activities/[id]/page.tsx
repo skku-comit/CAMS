@@ -19,8 +19,8 @@ export default function ActivityDetailPage({ params }: { params: { id: string } 
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-4 md:px-6 lg:px-8 py-4 md:py-6">
-      <div className="mb-6 md:mb-8">
+    <div className="mx-auto max-w-5xl px-0 md:px-6 lg:px-8 py-4 md:py-6">
+      <div className="px-4 mb-6 md:mb-8">
         <button 
           onClick={() => router.back()} 
           className="mb-3 md:mb-4 text-[13px] text-gray-500 hover:text-gray-700"
@@ -48,7 +48,7 @@ export default function ActivityDetailPage({ params }: { params: { id: string } 
         </div>
       </div>
 
-      <div className="mb-8 space-y-4">
+      <div className="px-4 mb-8 space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
           <div className="space-y-1">
             <h2 className="text-[15px] font-medium">전체 진행률</h2>

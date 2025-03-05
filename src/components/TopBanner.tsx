@@ -1,6 +1,7 @@
 'use client';
 import { useSidebar } from '@/contexts/SidebarContext'
 import React from 'react';
+import Link from 'next/link';
 
 export default function TopBanner() {
   const { toggle } = useSidebar()
@@ -29,14 +30,14 @@ export default function TopBanner() {
           </svg>
         </button>
 
-        <div className="flex flex-col">
+        <Link href="/" className="flex flex-col">
           <span className="text-base md:text-lg font-medium text-gray-900">
             코밋 활동관리시스템
           </span>
           <span className="text-[11px] md:text-[12px] text-gray-500">
             Comit Activities Management System
           </span>
-        </div>
+        </Link>
       </div>
 
       <div className="flex items-center gap-3 md:gap-6">
