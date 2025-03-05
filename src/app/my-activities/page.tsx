@@ -64,9 +64,9 @@ export default function MyActivitiesPage() {
                 </div>
                 <span className={clsx(
                   'px-2 py-1 rounded-full',
-                  activity.status === '진행중' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                  // "activity.status" === '진행중' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
                 )}>
-                  {activity.status}
+                  {/* {activity.status} */}
                 </span>
               </div>
             </div>
