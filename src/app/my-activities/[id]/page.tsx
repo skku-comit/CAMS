@@ -53,7 +53,7 @@ export default function ActivityDetailPage({ params }: { params: { id: string } 
           <div className="space-y-1">
             <h2 className="text-[15px] font-medium">전체 진행률</h2>
             <p className="text-[13px] text-gray-500">
-              {activity.duration} • {activity.schedule}
+              activity.duration • {activity.schedule}
             </p>
           </div>
           <div className="text-right">
