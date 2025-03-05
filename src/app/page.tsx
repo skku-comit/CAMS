@@ -4,25 +4,27 @@ import Link from 'next/link'
 
 export default function HomePage() {
   return (
-    <div className="mx-auto max-w-6xl space-y-12 px-8 py-6">
+    <div className="mx-auto max-w-6xl space-y-8 md:space-y-12">
       {/* 환영 섹션 */}
-      <div>
-        <h1 className="mb-3 text-2xl font-bold">박코딩님 환영합니다! 👋</h1>
+      <div className="p-4 md:p-6">
+        <h1 className="mb-3 text-xl md:text-2xl font-bold">
+          박코딩님 환영합니다! 👋
+        </h1>
         <div className="space-y-3">
-          <p className="text-[15px] leading-relaxed text-gray-600">
-            <span className="font-medium text-primary">COMIT</span>은 코딩을 처음 시작하는 분들부터 실무 경험이 있는
-            분들까지,
-            <br />
+          <p className="text-[14px] md:text-[15px] leading-relaxed text-gray-600 break-keep">
+            <span className="font-medium text-primary">COMIT</span>은 코딩을 처음
+            시작하는 분들부터 실무 경험이 있는 분들까지,
+            <br className="hidden md:block" />
             모든 수준의 개발자들이 함께하며 성장하는 커뮤니티입니다.
           </p>
-          <div className="flex gap-3">
-            <div className="flex items-center gap-2 rounded-full bg-[#E8EDE4] px-3 py-1.5 text-[14px] text-gray-600">
+          <div className="flex flex-wrap gap-2 md:gap-3">
+            <div className="flex items-center gap-2 rounded-full bg-[#E8EDE4] px-3 py-1.5 text-[13px] md:text-[14px] text-gray-600">
               <span>👥 선배들과의 멘토링</span>
             </div>
-            <div className="flex items-center gap-2 rounded-full bg-[#E8EDE4] px-3 py-1.5 text-[14px] text-gray-600">
+            <div className="flex items-center gap-2 rounded-full bg-[#E8EDE4] px-3 py-1.5 text-[13px] md:text-[14px] text-gray-600">
               <span>🙌 기억에 남는 스터디 경험</span>
             </div>
-            <div className="flex items-center gap-2 rounded-full bg-[#E8EDE4] px-3 py-1.5 text-[14px] text-gray-600">
+            <div className="flex items-center gap-2 rounded-full bg-[#E8EDE4] px-3 py-1.5 text-[13px] md:text-[14px] text-gray-600">
               <span>🤝 교내 개발자 네트워킹</span>
             </div>
           </div>
@@ -30,7 +32,7 @@ export default function HomePage() {
       </div>
 
       {/* 활동 섹션 */}
-      <div className="mb-12 grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
         <Link href="/courses" className="group">
           <div className="h-full rounded-lg bg-white p-6 shadow-lg transition-shadow hover:shadow-xl">
             <div className="mb-4 flex items-center justify-between">
@@ -71,7 +73,7 @@ export default function HomePage() {
       </div>
 
       {/* 추가 기능 섹션 */}
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         <div className="rounded-lg bg-white p-6 shadow-lg">
           <div className="mb-3 flex items-center gap-3">
             <span className="text-2xl">🏢</span>
@@ -130,17 +132,22 @@ export default function HomePage() {
           </Link>
         </div>
       </div>
-      {/* 추가 기능 섹션과 통계 섹션 사이 */}
-      <div className="py-8 text-center">
-        <h2 className="mb-2 text-xl font-bold">코밋은 지금까지...</h2>
-        <p className="text-[14px] leading-relaxed text-gray-600">
-          20xx년부터 시작된 코밋은 매학기 누군가에간 시작을, 또 누군가에겐 발전으로 수많은 구성원들과 함께
-          성장해왔습니다.
-          <br />매 학기 새로운 도전과 함께, 더 나은 교내 스터디 문화를 만들어가고 있어요.
+
+      {/* 통계 섹션 */}
+      <div className="py-6 md:py-8 text-center">
+        <h2 className="mb-2 text-lg md:text-xl font-bold">
+          코밋은 지금까지...
+        </h2>
+        <p className="text-[13px] md:text-[14px] leading-relaxed text-gray-600">
+          20xx년부터 시작된 코밋은 매학기 누군가에간 시작을, 또 누군가에겐
+          발전으로 수많은 구성원들과 함께 성장해왔습니다.
+          <br className="hidden md:block" />
+          매 학기 새로운 도전과 함께, 더 나은 교내 스터디 문화를 만들어가고
+          있어요.
         </p>
       </div>
-      {/* 통계 섹션 */}
-      <div className="mb-12 grid grid-cols-3 gap-6">
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
         <div className="rounded-lg bg-white p-6 text-center shadow-lg">
           <p className="mb-2 text-4xl font-bold text-primary">70+</p>
           <p className="text-[13px] text-gray-600">누적 스터디 개설</p>

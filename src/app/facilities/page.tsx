@@ -1,22 +1,14 @@
 'use client'
-import React, { useState, useMemo } from 'react'
-import { Calendar, dateFnsLocalizer, SlotInfo } from 'react-big-calendar'
-import { format, parse, startOfWeek, getDay } from 'date-fns'
-import ko from 'date-fns/locale/ko'
-import 'react-big-calendar/lib/css/react-big-calendar.css'
+
+import { useState, useMemo } from 'react'
+import { Calendar, momentLocalizer, SlotInfo } from 'react-big-calendar'
+import moment from 'moment'
+import 'moment/locale/ko'
 import { mockReservations } from '@/lib/mockData'
+import './styles.css'
 
-const locales = {
-  ko: ko
-}
-
-const localizer = dateFnsLocalizer({
-  format,
-  parse,
-  startOfWeek,
-  getDay,
-  locales
-})
+moment.locale('ko')
+const localizer = momentLocalizer(moment)
 
 interface Reservation {
   id: string
@@ -39,7 +31,7 @@ export default function FacilitiesPage() {
           title,
           start,
           end,
-          userId: 'current-user' // 실제 구현시 현재 로그인한 사용자 ID로 대체
+          userId: 'current-user'
         }
       ])
     }
@@ -51,7 +43,9 @@ export default function FacilitiesPage() {
         timeSlotWrapper: (props: any) => (
           <div
             {...props}
-            className={`${props.className} ${new Date(props.value).getMinutes() === 30 ? 'half-hour' : ''}`}
+            className={`${props.className} ${
+              new Date(props.value).getMinutes() === 30 ? 'half-hour' : ''
+            }`}
           />
         )
       },
@@ -64,46 +58,60 @@ export default function FacilitiesPage() {
   )
 
   return (
-    <div className="h-[calc(100vh-6rem)] px-8">
-      <div className="flex h-full flex-col">
-        <div className="flex flex-col py-4">
-          <h1 className="mb-2 text-2xl font-bold">시설 예약 - 동아리방</h1>
-          <a
-            href="https://www.skku.edu/skku/about/campusInfo/campusMap.do?category=sisulList&campusCd=2&kind=0104&buildNo=20104106"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-[13px] text-gray-600 hover:text-primary hover:underline"
-          >
-            <span>위치: 자연과학캠퍼스 학생회관 20x호</span>
-            <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-              />
-            </svg>
-          </a>
+    <div className="mx-auto max-w-6xl px-4 md:px-6 lg:px-8 py-4 md:py-6">
+      <div className="mb-6 md:mb-8">
+        <h1 className="mb-3 md:mb-4 text-xl md:text-2xl font-bold">
+          시설 예약
+        </h1>
+        <p className="text-[13px] text-gray-600">
+          동아리방 사용 시간을 예약할 수 있습니다.
+        </p>
+      </div>
+
+      <div className="rounded-lg border bg-white p-4 md:p-6">
+        <div className="mb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <h2 className="text-[15px] font-medium">예약 현황</h2>
+            <p className="text-[13px] text-gray-500">
+              빈 시간대를 클릭하여 예약할 수 있습니다
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3 text-[13px]">
+            <div className="flex items-center gap-2">
+              <div className="h-3 w-3 rounded-full bg-primary/20"></div>
+              <span>예약됨</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-3 w-3 rounded-full bg-green-500/20"></div>
+              <span>이용 가능</span>
+            </div>
+          </div>
         </div>
-        <div className="flex-1 rounded-lg bg-white p-6 shadow-lg">
+
+        <div className="h-[600px] md:h-[700px]">
           <Calendar
             localizer={localizer}
+            events={reservations}
             startAccessor="start"
             endAccessor="end"
-            style={{ height: '100%', fontSize: '0.67em' }}
-            step={30}
-            timeslots={1}
             selectable
             onSelectSlot={handleSelect}
-            defaultView="week"
-            views={views}
             components={components}
-            min={new Date(0, 0, 0, 8, 0, 0)}
-            max={new Date(0, 0, 0, 22, 0, 0)}
+            views={views}
+            defaultView="week"
+            min={new Date(0, 0, 0, 9, 0, 0)} // 오전 9시
+            max={new Date(0, 0, 0, 22, 0, 0)} // 오후 10시
             formats={{
-              timeGutterFormat: (date: Date) => format(date, 'HH:mm'),
-              dayHeaderFormat: (date: Date) => format(date, 'M월 d일 (eee)')
+              timeGutterFormat: (date, culture, localizer) =>
+                localizer.format(date, 'HH:mm', culture),
+              eventTimeRangeFormat: ({ start, end }, culture, localizer) =>
+                `${localizer.format(start, 'HH:mm', culture)} - ${localizer.format(
+                  end,
+                  'HH:mm',
+                  culture
+                )}`
             }}
+            className="text-[13px] md:text-[14px]"
           />
         </div>
       </div>

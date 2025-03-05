@@ -19,40 +19,17 @@ export default function CoursesPage() {
   })
 
   return (
-    <div className="mx-auto max-w-7xl px-8">
-      <div className="mb-8">
-        <div className="my-6 flex items-center justify-between">
-          <h1 className="text-2xl font-bold">2024-2학기</h1>
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="제목을 검색하세요"
-              className="w-80 rounded-lg border px-4 py-2 pr-12"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <button
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-              onClick={() => {
-                /* 검색 로직 */
-              }}
-            >
-              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
+    <div className="mx-auto max-w-6xl px-4 md:px-6 lg:px-8 py-4 md:py-6">
+      <div className="mb-6 md:mb-8">
+        <h1 className="mb-3 md:mb-4 text-xl md:text-2xl font-bold">개설 현황</h1>
+        <p className="text-[13px] text-gray-600">
+          현재 모집 중인 스터디와 프로젝트를 확인해보세요.
+        </p>
 
-        <div className="mt-8">
+        <div className="mt-6 md:mt-8">
           <Link
             href="/courses/create"
-            className="mb-4 inline-flex items-center gap-1 text-[13px] text-primary hover:text-primary-dark hover:underline"
+            className="inline-flex items-center gap-1 text-[13px] text-primary hover:text-primary-dark hover:underline"
           >
             <span>원하는 활동이 없으신가요? 새로운 스터디/세션 만들기</span>
             <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -61,17 +38,20 @@ export default function CoursesPage() {
           </Link>
         </div>
 
-        <div className="flex gap-4 border-b">
+        <div className="mt-4 flex gap-2 md:gap-4 border-b overflow-x-auto scrollbar-hide">
           <button
             onClick={() => setActiveTab('all')}
-            className={clsx('px-4 py-2', activeTab === 'all' ? 'border-b-2 border-black font-medium' : 'text-gray-500')}
+            className={clsx(
+              'px-3 md:px-4 py-2 whitespace-nowrap text-[13px] md:text-[14px]',
+              activeTab === 'all' ? 'border-b-2 border-black font-medium' : 'text-gray-500'
+            )}
           >
             전체
           </button>
           <button
             onClick={() => setActiveTab('study')}
             className={clsx(
-              'px-4 py-2',
+              'px-3 md:px-4 py-2 whitespace-nowrap text-[13px] md:text-[14px]',
               activeTab === 'study' ? 'border-b-2 border-black font-medium' : 'text-gray-500'
             )}
           >
@@ -80,7 +60,7 @@ export default function CoursesPage() {
           <button
             onClick={() => setActiveTab('project')}
             className={clsx(
-              'px-4 py-2',
+              'px-3 md:px-4 py-2 whitespace-nowrap text-[13px] md:text-[14px]',
               activeTab === 'project' ? 'border-b-2 border-black font-medium' : 'text-gray-500'
             )}
           >
@@ -89,7 +69,7 @@ export default function CoursesPage() {
           <button
             onClick={() => setActiveTab('session')}
             className={clsx(
-              'px-4 py-2',
+              'px-3 md:px-4 py-2 whitespace-nowrap text-[13px] md:text-[14px]',
               activeTab === 'session' ? 'border-b-2 border-black font-medium' : 'text-gray-500'
             )}
           >
@@ -108,42 +88,52 @@ export default function CoursesPage() {
           </Link>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {filteredActivities.map((activity) => (
             <div
               key={activity.id}
-              className="flex items-center justify-between rounded-lg border p-4 transition-shadow hover:shadow-md"
+              className="rounded-lg border bg-white p-4 md:p-5 shadow-sm hover:shadow-md transition-shadow"
             >
-              <div className="flex items-center gap-4">
-                <span className="text-2xl">{activity.icon}</span>
-                <div>
-                  <h3 className="font-medium">{activity.title}</h3>
-                  <div className="mt-1 flex gap-2 text-sm text-gray-500">
-                    <span
-                      className={clsx(
-                        'rounded px-2 py-0.5',
-                        activity.level === 'easy' && 'bg-green-100 text-green-800',
-                        activity.level === 'medium' && 'bg-yellow-100 text-yellow-800',
-                        activity.level === 'hard' && 'bg-red-100 text-red-800'
-                      )}
-                    >
-                      {activity.level === 'easy' ? '초급' : activity.level === 'medium' ? '중급' : '고급'}
-                    </span>
-                    <span>
-                      • 모집인원: {activity.currentMembers}/{activity.maxMembers}
-                    </span>
-                    <span>
-                      • {activity.type === 'study' ? '스터디' : activity.type === 'project' ? '프로젝트' : '세션'}
-                    </span>
+              <div className="mb-3 flex items-start justify-between">
+                <div className="flex items-center gap-3">
+                  <span className="text-xl md:text-2xl">{activity.icon}</span>
+                  <div>
+                    <h3 className="text-[14px] md:text-[15px] font-medium line-clamp-1">
+                      {activity.title}
+                    </h3>
+                    <div className="mt-1 flex flex-wrap gap-2 text-[12px] md:text-[13px] text-gray-500">
+                      <span
+                        className={clsx(
+                          'rounded px-1.5 py-0.5',
+                          activity.level === 'easy' && 'bg-green-100 text-green-800',
+                          activity.level === 'medium' && 'bg-yellow-100 text-yellow-800',
+                          activity.level === 'hard' && 'bg-red-100 text-red-800'
+                        )}
+                      >
+                        {activity.level === 'easy' ? '초급' : activity.level === 'medium' ? '중급' : '고급'}
+                      </span>
+                    </div>
                   </div>
                 </div>
+                <span
+                  className={clsx(
+                    'text-[12px] px-2 py-1 rounded-full',
+                    activity.status === '모집중' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                  )}
+                >
+                  {activity.status}
+                </span>
               </div>
-              <button
-                className="rounded-lg bg-primary px-4 py-2 text-white transition-colors hover:bg-primary-dark"
-                onClick={() => alert('아직 클릭가능한 버튼이 아닙니다.')}
-              >
-                신청하기
-              </button>
+
+              <div className="mt-4 flex items-center justify-between text-[12px] md:text-[13px] text-gray-500">
+                <span>👥 {activity.currentMembers}/{activity.maxMembers}명</span>
+                <button
+                  onClick={() => alert('아직 클릭가능한 버튼이 아닙니다.')}
+                  className="text-primary hover:text-primary-dark"
+                >
+                  참여하기
+                </button>
+              </div>
             </div>
           ))}
         </div>
