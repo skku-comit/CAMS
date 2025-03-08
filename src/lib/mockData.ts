@@ -1,3 +1,5 @@
+import { Activity } from '@/types/type'
+
 export const mockStudies = [
   {
     id: '1',
@@ -362,12 +364,12 @@ export interface WeeklyProgress {
   originalDescription?: string // 원래 계획된 설명
 }
 
-export const mockMyActivities = [
+export const mockMyActivities: Activity[] = [
   {
-    id: 'study1',
-    title: '알고리즘 1D1P Challenge Season 3',
+    id: '1',
+    title: 'React 스터디',
     type: 'study',
-    level: 'medium',
+    level: 'easy',
     icon: '🏃',
     schedule: '매주 화요일 15:00-17:00',
     startDate: '2024-03-01',
@@ -434,10 +436,15 @@ export const mockMyActivities = [
         status: 'upcoming',
         description: '실전 대비 종합 문제 풀이'
       }
-    ]
+    ],
+    duration_week: 8,
+    curriculum: Array(8).fill(null).map((_, i) => ({
+      week_index: i + 1,
+      learning_plan: `${i + 1}주차 학습 계획`
+    }))
   },
   {
-    id: 'session1',
+    id: '2',
     title: 'Git & GitHub 기초',
     type: 'session',
     level: 'easy',
@@ -501,7 +508,12 @@ export const mockMyActivities = [
         status: 'upcoming',
         description: '배운 내용 종합 실습'
       }
-    ]
+    ],
+    duration_week: 8,
+    curriculum: Array(8).fill(null).map((_, i) => ({
+      week_index: i + 1,
+      learning_plan: `${i + 1}주차 학습 계획`
+    }))
   }
 ]
 

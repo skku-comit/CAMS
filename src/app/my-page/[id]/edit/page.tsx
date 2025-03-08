@@ -4,17 +4,11 @@ import { useState, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import clsx from 'clsx'
 import { mockMyActivities } from '@/lib/mockData'
-
-type ActivityLevel = 'easy' | 'intermediate' | 'hard'
-
-interface WeeklyPlan {
-  week_index: number
-  learning_plan: string
-}
+import { Activity, ActivityLevel, WeeklyPlan } from '@/types/type'
 
 export default function EditActivityPage({ params }: { params: { id: string } }) {
   const router = useRouter()
-  const activity = mockMyActivities.find((a) => a.id === params.id)
+  const activity = mockMyActivities.find((a) => a.id === params.id) as Activity | undefined
 
   const [formData, setFormData] = useState({
     activity_name: activity?.title || '',

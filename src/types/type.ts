@@ -2,6 +2,8 @@ export type Level = '초급' | '중급' | '고급'
 export type Campus = '공통' | '온라인' | '명륜' | '율전'
 export type Day = '월' | '화' | '수' | '목' | '금' | '토' | '일'
 export type Role = 'ROLE_MEMBER' | 'ROLE_VERIFIED' | 'ROLE_ADMIN'
+export type ActivityType = 'study' | 'project' | 'session'
+export type ActivityLevel = 'easy' | 'intermediate' | 'hard'
 
 export interface ErrorResponse {
   errorType: string
@@ -51,6 +53,41 @@ export interface Study {
   description: string
   isRecruiting: boolean
   semester: string
+}
+
+export interface WeeklyPlan {
+  week_index: number
+  learning_plan: string
+}
+
+interface WeeklyProgress {
+  week: number
+  title: string
+  status: 'completed' | 'current' | 'upcoming'
+  description: string
+  originalTitle?: string
+  originalDescription?: string
+}
+
+export interface Activity {
+  id: string
+  title: string
+  type: ActivityType
+  level: ActivityLevel
+  icon: string
+  schedule: string
+  startDate: string
+  endDate: string
+  progress: number
+  duration_week: number
+  curriculum: WeeklyPlan[]
+  members: {
+    id: string
+    name: string
+    isLeader: boolean
+  }[]
+  currentWeek: number
+  weeklyProgress: WeeklyProgress[]
 }
 
 

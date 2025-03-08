@@ -36,10 +36,10 @@ export default function ActivityDetailPage({ params }: { params: { id: string } 
             <span className={clsx(
               'rounded-full px-2.5 py-1',
               activity.level === 'easy' && 'bg-green-100 text-green-800',
-              activity.level === 'medium' && 'bg-yellow-100 text-yellow-800',
+              activity.level === 'intermediate' && 'bg-yellow-100 text-yellow-800',
               activity.level === 'hard' && 'bg-red-100 text-red-800'
             )}>
-              {activity.level === 'easy' ? '초급' : activity.level === 'medium' ? '중급' : '고급'}
+              {activity.level === 'easy' ? '초급' : activity.level === 'intermediate' ? '중급' : '고급'}
             </span>
             <span className="rounded-full bg-gray-100 px-2.5 py-1">
               {activity.type === 'study' ? '스터디' : activity.type === 'project' ? '프로젝트' : '세션'}
