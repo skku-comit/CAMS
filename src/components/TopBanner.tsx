@@ -47,9 +47,15 @@ export default function TopBanner() {
         </div>
         <div className="hidden md:block h-4 w-px bg-gray-200"></div>
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center text-[13px] font-medium text-gray-700">
-            박
-          </div>
+          <Link
+            href="/my-page"
+            className="flex items-center gap-2 hover:bg-gray-50 rounded-lg px-3 py-1.5 transition-colors"
+          >
+            <span className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-[13px] font-medium">
+              박
+            </span>
+            <span className="text-[13px]">박코딩님</span>
+          </Link>
           <button 
             onClick={() => alert('아직 클릭가능한 버튼이 아닙니다.')} 
             className="text-[13px] text-gray-600 hover:text-gray-900 hidden md:block"

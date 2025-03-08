@@ -73,7 +73,7 @@ export default function Sidebar() {
         </nav>
 
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t bg-white">
-          <div className="flex items-center gap-3 px-2">
+          <Link href="/my-page" className="flex items-center gap-3 px-2 hover:bg-gray-50 rounded-lg py-2 transition-colors">
             <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-medium">
               박
             </div>
@@ -81,7 +81,7 @@ export default function Sidebar() {
               <p className="text-[13px] font-medium truncate">박코딩</p>
               <p className="text-[11px] text-gray-500">컴퓨터공학과</p>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </>

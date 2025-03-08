@@ -69,6 +69,18 @@ export default function MyActivitiesPage() {
                   {/* {activity.status} */}
                 </span>
               </div>
+
+              <div className="mt-4 flex items-center justify-between">
+                <Link
+                  href={`/my-page/${activity.id}/edit`}
+                  className="text-[12px] text-primary hover:text-primary-dark hover:underline"
+                  onClick={(e) => {
+                    e.stopPropagation() // 카드 클릭 이벤트 전파 방지
+                  }}
+                >
+                  수정하기
+                </Link>
+              </div>
             </div>
           </Link>
         ))}

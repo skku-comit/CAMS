@@ -19,7 +19,7 @@ export default function CoursesPage() {
   })
 
   return (
-    <div className="mx-auto max-w-6xl px-0 md:px-6 lg:px-8 py-4 md:py-6">
+    <div className="mx-auto max-w-6xl px-0 md:px-2 lg:px-8 py-4 md:py-6">
       <div className="px-0 mb-6 md:mb-8">
         <h1 className="mb-3 md:mb-4 text-xl md:text-2xl font-bold px-4">개설 현황</h1>
         <p className="text-[13px] text-gray-600 px-4">
@@ -88,51 +88,56 @@ export default function CoursesPage() {
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
           {filteredActivities.map((activity) => (
             <div
               key={activity.id}
-              className="rounded-lg border bg-white p-4 md:p-5 shadow-sm hover:shadow-md transition-shadow"
+              className="rounded-lg border bg-white p-4 md:p-5 shadow-sm hover:shadow-md transition-shadow h-[130px] md:h-[140px]"
             >
-              <div className="mb-3 flex items-start justify-between">
-                <div className="flex items-center gap-3">
-                  <span className="text-xl md:text-2xl">{activity.icon}</span>
-                  <div>
-                    <h3 className="text-[14px] md:text-[15px] font-medium line-clamp-1">
-                      {activity.title}
-                    </h3>
-                    <div className="mt-1 flex flex-wrap gap-2 text-[12px] md:text-[13px] text-gray-500">
-                      <span
-                        className={clsx(
-                          'rounded px-1.5 py-0.5',
-                          activity.level === 'easy' && 'bg-green-100 text-green-800',
-                          activity.level === 'medium' && 'bg-yellow-100 text-yellow-800',
-                          activity.level === 'hard' && 'bg-red-100 text-red-800'
-                        )}
-                      >
-                        {activity.level === 'easy' ? '초급' : activity.level === 'medium' ? '중급' : '고급'}
-                      </span>
+              <div className="flex flex-col justify-between h-full">
+                <div className="mb-3 flex items-start justify-between">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl md:text-2xl">{activity.icon}</span>
+                    <div>
+                      <h3 className="text-[14px] md:text-[15px] font-medium line-clamp-1">
+                        {activity.title}
+                      </h3>
+                      <div className="mt-1 flex flex-wrap gap-2 text-[12px] md:text-[13px] text-gray-500">
+                        <span
+                          className={clsx(
+                            'rounded px-1.5 py-0.5',
+                            activity.level === 'easy' && 'bg-green-100 text-green-800',
+                            activity.level === 'medium' && 'bg-yellow-100 text-yellow-800',
+                            activity.level === 'hard' && 'bg-red-100 text-red-800'
+                          )}
+                        >
+                          {activity.level === 'easy' ? '초급' : activity.level === 'medium' ? '중급' : '고급'}
+                        </span>
+                      </div>
                     </div>
                   </div>
+                  <span
+                    className={clsx(
+                      'text-[12px] px-2 py-1 rounded-full min-w-12',
+                      activity.status === '모집중' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                    )}
+                  >
+                    {activity.status}
+                  </span>
                 </div>
-                <span
-                  className={clsx(
-                    'text-[12px] px-2 py-1 rounded-full',
-                    activity.status === '모집중' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                  )}
-                >
-                  {activity.status}
-                </span>
-              </div>
 
-              <div className="mt-4 flex items-center justify-between text-[12px] md:text-[13px] text-gray-500">
-                <span>👥 {activity.currentMembers}/{activity.maxMembers}명</span>
-                <button
-                  onClick={() => alert('아직 클릭가능한 버튼이 아닙니다.')}
-                  className="text-primary hover:text-primary-dark"
-                >
-                  참여하기
-                </button>
+                <div className="flex items-center justify-between text-[12px] md:text-[13px] text-gray-500">
+                  <span>👥 {activity.currentMembers}/{activity.maxMembers}명</span>
+                  <button
+                    onClick={() => alert('아직 클릭가능한 버튼이 아닙니다.')}
+                    className={clsx(
+                      "text-primary px-2 py-1 rounded-md transition-colors", 
+                      activity.status === '모집중' ? 'hover:bg-primary/10 text-primary-dark' : 'bg-gray-100 text-gray-900'
+                    )}
+                  >
+                    참여하기
+                  </button>
+                </div>
               </div>
             </div>
           ))}

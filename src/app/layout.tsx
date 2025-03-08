@@ -6,7 +6,10 @@ import { SidebarProvider } from '@/contexts/SidebarContext'
 
 export const metadata: Metadata = {
   title: '코밋 활동관리시스템',
-  description: 'Comit Activities Management System'
+  description: 'Comit Activities Management System',
+  icons: {
+    icon: '/comitOwl.png'
+  }
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

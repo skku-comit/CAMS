@@ -39,7 +39,7 @@ export default function HomePage() {
               <h2 className="text-lg font-semibold">스터디/세션 참여하기</h2>
               <span className="text-2xl">📚</span>
             </div>
-            <p className="mb-4 text-[13px] text-gray-600">
+            <p className="mb-4 text-[13px] text-gray-600 break-keep">
               현재 모집 중인 스터디와 세션을 확인하고 참여해보세요. 초급부터 고급까지 다양한 난이도의 프로그램이
               준비되어 있습니다.
             </p>
@@ -58,7 +58,7 @@ export default function HomePage() {
               <h2 className="text-lg font-semibold">내 활동 관리</h2>
               <span className="text-2xl">🎯</span>
             </div>
-            <p className="mb-4 text-[13px] text-gray-600">
+            <p className="mb-4 text-[13px] text-gray-600 break-keep">
               참여 중인 활동의 진행 상황을 확인하고 팀원들과 소통하세요. 주차별 커리큘럼 관리와 게시판 기능을
               제공합니다.
             </p>
@@ -79,7 +79,7 @@ export default function HomePage() {
             <span className="text-2xl">🏢</span>
             <h2 className="text-[15px] font-medium">시설 이용</h2>
           </div>
-          <p className="mb-3 text-[13px] text-gray-600">동아리방 예약 및 이용이 가능합니다.</p>
+          <p className="mb-3 text-[13px] text-gray-600 break-keep">동아리방 예약 및 이용이 가능합니다.</p>
           <a
             href="https://www.skku.edu/skku/about/campusInfo/campusMap.do?category=sisulList&campusCd=2&kind=0104&buildNo=20104106"
             target="_blank"
@@ -109,7 +109,7 @@ export default function HomePage() {
             <span className="text-2xl">📚</span>
             <h2 className="text-[15px] font-medium">도서 대출</h2>
           </div>
-          <p className="mb-3 text-[13px] text-gray-600">다양한 IT 관련 도서를 대출할 수 있습니다.</p>
+          <p className="mb-3 text-[13px] text-gray-600 break-keep">다양한 IT 관련 도서를 대출할 수 있습니다.</p>
           <Link href="/books" className="flex items-center gap-1 text-[13px] text-primary hover:text-primary-dark">
             도서 목록 보기
             <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,7 +123,7 @@ export default function HomePage() {
             <span className="text-2xl">📢</span>
             <h2 className="text-[15px] font-medium">공지사항</h2>
           </div>
-          <p className="mb-3 text-[13px] text-gray-600">동아리 활동 관련 주요 공지를 확인하세요.</p>
+          <p className="mb-3 text-[13px] text-gray-600 break-keep">동아리 활동 관련 주요 공지를 확인하세요.</p>
           <Link href="/notices" className="flex items-center gap-1 text-[13px] text-primary hover:text-primary-dark">
             공지사항 보기
             <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

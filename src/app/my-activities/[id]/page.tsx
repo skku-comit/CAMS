@@ -73,12 +73,7 @@ export default function ActivityDetailPage({ params }: { params: { id: string } 
       <div className="rounded-lg border bg-white p-4 md:p-6">
         <div className="mb-4 flex flex-col md:flex-row md:items-center justify-between gap-3">
           <h2 className="text-[15px] font-medium">주차별 진행상황</h2>
-          <button
-            onClick={() => setShowOriginalPlan(!showOriginalPlan)}
-            className="text-[13px] text-primary hover:text-primary-dark"
-          >
-            {showOriginalPlan ? '실제 진행상황 보기' : '예정된 커리큘럼 보기'}
-          </button>
+
         </div>
 
         <div className="space-y-3">
