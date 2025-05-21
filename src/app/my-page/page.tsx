@@ -1,28 +1,40 @@
-'use client'
-
-import { useState } from 'react'
+// src/app/my-page/page.tsx
 import Link from 'next/link'
-import clsx from 'clsx'
-import ProfileInput from '@/components/ProfileInput'
-import type { User } from '@/types/type'
+import { getSession } from '@/lib/actions/authActions'
+import type { UserProfileData } from '@/lib/actions/authActions'
+import { redirect } from 'next/navigation'
+import UserProfileClient from './UserProfileClient'
 
-export default function MyPage() {
-  const [isEditing, setIsEditing] = useState(false)
-  const [userInfo, setUserInfo] = useState<Partial<User>>({
-    userEmail: 'park@g.skku.edu',
-    userName: '박코딩',
-    phoneNumber: 1012345678,
-    studentId: 2020123456,
-    major: '소프트웨어학과',
-    blogUrl: 'https://blog.example.com',
-    userGithub: 'github.com/parkcode',
-    kakaoId: 'parkcoding',
-    bio: '안녕하세요, 열심히 코딩하는 박코딩입니다.'
-  })
+export default async function MyPage() {
+  const session = await getSession()
 
-  const handleChange = (key: keyof User) => (value: string) => {
-    setUserInfo((prev) => ({ ...prev, [key]: value }))
+  if (!session?.user) {
+    // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
+    redirect('/login?alert=login_required&redirect_to=/my-page')
   }
+
+  // UserProfileData에는 role이 없으므로, 필요하다면 getSession에서 role도 가져오도록 수정 필요
+  // 현재 /profile 응답에는 role이 없습니다.
+  // types/type.ts 의 User 인터페이스에는 UserGithub, bio, blogUrl, kakaoId 등이 있으나
+  // /profile 응답에는 일부만 있습니다. UserProfileClient에서 이를 고려해야 합니다.
+
+  const initialUserInfo: Partial<UserProfileData> = {
+    email: session.user.email,
+    name: session.user.name, // 로그인 ID
+    fullName: session.user.fullName, // 실제 이름
+    phoneNumber: session.user.phoneNumber,
+    studentId: session.user.studentId,
+    // /profile 응답에 없는 필드들은 기본값 또는 null/undefined 처리
+    github: session.user.github || null,
+    blog: session.user.blog || null
+    // kakaoId: session.user.kakaoId || null, // /profile 응답에 없음
+    // bio: session.user.bio || '', // /profile 응답에 없음
+  }
+
+  // User 타입과 UserProfileData 간의 필드 불일치를 해결해야 합니다.
+  // UserProfileClient 에서는 UserProfileData를 기준으로 상태를 관리하거나,
+  // User 타입의 모든 필드를 표시하려면 /profile API 응답이 해당 정보를 모두 포함해야 합니다.
+  // 현재는 /profile 응답 기준으로 initialUserInfo를 구성합니다.
 
   return (
     <div className="mx-auto max-w-3xl px-0 py-4 md:px-6 md:py-6 lg:px-8">
@@ -30,108 +42,13 @@ export default function MyPage() {
       <div className="mb-8 md:mb-10">
         <h1 className="mb-6 ml-4 text-xl font-bold md:text-2xl">마이페이지</h1>
 
-        <div className="rounded-lg bg-white p-6 shadow-lg">
-          <div className="mb-6 flex items-start justify-between">
-            <div className="flex items-center gap-4">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-200 text-2xl">👤</div>
-              <div>
-                <h2 className="text-base font-medium md:text-lg">{userInfo.userName}</h2>
-                <p className="text-xs text-gray-600 md:text-[13px]">
-                  {userInfo.major} {String(userInfo.studentId).slice(0, 4)}학번
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={() => setIsEditing(!isEditing)}
-              className={clsx(
-                'rounded-lg px-3 py-1.5 text-[13px] transition-colors',
-                isEditing ? 'bg-primary text-white hover:bg-primary-dark' : 'text-primary hover:bg-primary/10'
-              )}
-            >
-              {isEditing ? '저장' : '수정'}
-            </button>
-          </div>
-
-          <div className="space-y-4">
-            <ProfileInput
-              label="이름"
-              type="text"
-              value={String(userInfo.userName || '')}
-              disabled={!isEditing}
-              isEditing={isEditing}
-              onChange={handleChange('userName')}
-            />
-            <ProfileInput
-              label="이메일"
-              type="email"
-              value={String(userInfo.userEmail || '')}
-              disabled={!isEditing}
-              isEditing={isEditing}
-              onChange={handleChange('userEmail')}
-            />
-            <ProfileInput
-              label="전화번호"
-              type="tel"
-              value={String(userInfo.phoneNumber || '')}
-              disabled={!isEditing}
-              isEditing={isEditing}
-              onChange={handleChange('phoneNumber')}
-            />
-            <ProfileInput
-              label="학번"
-              type="number"
-              value={String(userInfo.studentId || '')}
-              disabled={!isEditing}
-              isEditing={isEditing}
-              onChange={handleChange('studentId')}
-            />
-            <ProfileInput
-              label="전공"
-              type="text"
-              value={String(userInfo.major || '')}
-              disabled={!isEditing}
-              isEditing={isEditing}
-              onChange={handleChange('major')}
-            />
-            <ProfileInput
-              label="GitHub"
-              type="text"
-              value={String(userInfo.userGithub || '')}
-              disabled={!isEditing}
-              isEditing={isEditing}
-              onChange={handleChange('userGithub')}
-            />
-            <ProfileInput
-              label="블로그"
-              type="url"
-              value={String(userInfo.blogUrl || '')}
-              disabled={!isEditing}
-              isEditing={isEditing}
-              onChange={handleChange('blogUrl')}
-            />
-            <ProfileInput
-              label="카카오톡 ID"
-              type="text"
-              value={String(userInfo.kakaoId || '')}
-              disabled={!isEditing}
-              isEditing={isEditing}
-              onChange={handleChange('kakaoId')}
-            />
-            <ProfileInput
-              label="자기소개"
-              type="textarea"
-              value={String(userInfo.bio || '')}
-              disabled={!isEditing}
-              isEditing={isEditing}
-              onChange={handleChange('bio')}
-            />
-          </div>
-        </div>
+        {/* 클라이언트 컴포넌트에 초기 사용자 정보 전달 */}
+        <UserProfileClient initialUserInfo={initialUserInfo} />
       </div>
 
-      {/* 활동 통계 */}
+      {/* 활동 통계 - 이 부분은 실제 데이터 연동 필요 */}
       <div className="mb-8">
-        <h2 className="mb-4 text-[15px] font-medium">활동 통계</h2>
+        <h2 className="mb-4 text-[16px] font-medium">활동 통계</h2>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <div className="rounded-lg bg-white p-4 text-center shadow-lg">
             <p className="text-3xl font-bold text-primary">3</p>
@@ -150,36 +67,25 @@ export default function MyPage() {
 
       {/* 바로가기 */}
       <div>
-        <h2 className="mb-4 text-[15px] font-medium">바로가기</h2>
-        <div className="space-y-2">
+        <h2 className="mb-4 text-[16px] font-medium">바로가기</h2>
+        <div className="space-y-3">
           <Link
             href="/my-activities"
-            className="group flex items-center justify-between rounded-lg bg-white p-4 shadow-lg transition-all hover:bg-gray-50 hover:shadow-xl"
+            className="group flex items-center justify-between rounded-lg bg-white p-4 shadow-md transition-all hover:bg-gray-50 hover:shadow-xl"
           >
             <div className="flex items-center gap-3">
               <span className="text-xl transition-transform group-hover:scale-110">📚</span>
               <span className="text-[14px]">내 활동 관리</span>
             </div>
-            <svg
-              className="h-4 w-4 text-gray-400 transition-all group-hover:translate-x-1 group-hover:text-primary"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
           </Link>
           <Link
             href="/facilities"
-            className="flex items-center justify-between rounded-lg bg-white p-4 shadow-lg transition-shadow hover:shadow-xl"
+            className="flex items-center justify-between rounded-lg bg-white p-4 shadow-md transition-shadow hover:shadow-xl"
           >
             <div className="flex items-center gap-3">
               <span className="text-xl">🏢</span>
               <span className="text-[14px]">시설 예약 내역</span>
             </div>
-            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
           </Link>
         </div>
       </div>
