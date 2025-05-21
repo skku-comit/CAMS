@@ -33,7 +33,7 @@ export default function TopBanner({ user }: TopBannerProps) {
           </svg>
         </button>
 
-        <Link href="/" className="flex flex-col">
+        <Link href="/" className="hidden flex-col md:flex">
           {' '}
           {/* */}
           <span className="text-base font-medium text-gray-900 md:text-lg">코밋 활동관리시스템</span> {/* */}

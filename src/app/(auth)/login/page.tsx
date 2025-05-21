@@ -1,16 +1,33 @@
 // src/app/login/page.tsx
 'use client'
 
-import { useState, FormEvent } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState, FormEvent } from 'react'
+import { redirect, useRouter, useSearchParams } from 'next/navigation'
 import { loginUser } from '@/lib/actions/authActions' // Server Action 경로
 
 export default function LoginPage() {
   const router = useRouter()
+  const searchParams = useSearchParams() // 쿼리 파라미터 읽기
+
   const [loginId, setLoginId] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [alertShown, setAlertShown] = useState(false) // alert가 이미 표시되었는지 추적하는 상태
+
+  useEffect(() => {
+    const alertType = searchParams.get('alert')
+    if (alertType === 'login_required' && !alertShown) {
+      alert('로그인이 필요한 페이지입니다.')
+      setAlertShown(true) // alert가 표시되었음을 기록
+
+      // alert 후 URL에서 쿼리 파라미터 제거 (선택 사항)
+      const newUrl = new URL(window.location.href)
+      newUrl.searchParams.delete('alert')
+      newUrl.searchParams.delete('redirect_to') // redirect_to도 함께 정리하거나 필요에 따라 유지
+      window.history.replaceState({}, '', newUrl.toString())
+    }
+  }, [searchParams])
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -21,8 +38,10 @@ export default function LoginPage() {
     formData.append('name', loginId)
     formData.append('password', password)
 
+    const redirectTo = searchParams.get('redirect_to')
+
     try {
-      const result = await loginUser(formData)
+      const result = await loginUser(formData, redirectTo)
       if (result?.error) {
         setError(result.error)
       } else {
@@ -40,7 +59,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex h-[calc(100vh-140px)] flex-col items-center justify-center bg-white">
-      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
+      <div className="w-full max-w-md rounded-lg bg-white sm:p-8 md:shadow-lg">
         <h1 className="mb-6 text-center text-2xl font-bold text-gray-800">로그인</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>

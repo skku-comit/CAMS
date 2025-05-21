@@ -7,8 +7,10 @@ export function middleware(request: NextRequest) {
   const sessionToken = request.cookies.get('session_token')?.value
   const { pathname } = request.nextUrl
 
+  console.log('Current pathname:', pathname)
+
   // 보호할 경로들
-  const protectedRoutes = ['/my-page', '/my-activities', '/courses/create'] // 예시 경로
+  const protectedRoutes = ['/my-page', '/my-activities', '/courses', '/facilities', '/books', '/notices']
   // 로그인이 필요한 API 경로 (필요하다면)
   // const protectedApiRoutes = ['/api/some-protected-route'];
 
@@ -16,9 +18,10 @@ export function middleware(request: NextRequest) {
   // const isAccessingProtectedApiRoute = protectedApiRoutes.some(route => pathname.startsWith(route));
 
   if (isAccessingProtectedRoute) {
-    if (!sessionToken) {
+    if (!sessionToken && pathname !== '/') {
       // 로그인 페이지로 리다이렉트 (원래 요청했던 경로를 쿼리 파라미터로 전달 가능)
       const loginUrl = new URL('/login', request.url)
+      loginUrl.searchParams.set('alert', 'login_required') // alert를 위한 파라미터 추가
       loginUrl.searchParams.set('redirect_to', pathname)
       return NextResponse.redirect(loginUrl)
     }

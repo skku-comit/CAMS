@@ -3,10 +3,19 @@
 
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+// import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies' // 추가
+// import { NextRequest } from 'next/server' // 직접 사용하지는 않지만, 미들웨어 컨텍스트 이해용
 
-const BACKEND_API_URL =
-  process.env.NEXT_PUBLIC_BACKEND_API_URL ||
-  'https://port-0-comit-website-server-development-maduo0ev92ec15eb.sel4.cloudtype.app/api'
+const BACKEND_API_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL
+
+interface SignupRequestBody {
+  name: string
+  fullName: string
+  password?: string // 비밀번호는 서버에서 직접 처리. 요청 시에는 포함될 수 있음
+  phoneNumber: string
+  studentId: string
+  email: string
+}
 
 // /profile API 응답의 data 부분에 대한 인터페이스
 // 이 인터페이스는 export 하여 다른 곳에서도 사용할 수 있도록 합니다.
@@ -20,8 +29,16 @@ export interface UserProfileData {
   imageSrc: string | null
   github: string | null
   blog: string | null
-  // role 정보가 /profile 응답에 없다면, 로그인 응답에서 가져오거나 별도 처리 필요
-  // 만약 /profile 응답에 role도 포함된다면 여기에 추가: role?: string;
+  role?: 'ROLE_MEMBER' | 'ROLE_ADMIN' // role을 선택적으로 추가 (회원가입 응답에는 포함, /profile에는 없을 수 있음)
+}
+
+// 회원가입 전체 응답 타입 (백엔드 응답과 일치시킴)
+interface SignupApiResponse {
+  data: UserProfileData | null // 성공 시 사용자 정보
+  error: {
+    errorType?: string
+    message: string
+  } | null
 }
 
 // /profile API 전체 응답 구조
@@ -33,8 +50,75 @@ interface ProfileApiResponse {
   data: UserProfileData | null
 }
 
+// 회원가입 응답 타입 (백엔드 응답에 따라 조정 필요)
+interface SignupResponse {
+  data: {
+    // 예시: 성공 시 사용자 정보 일부 또는 메시지
+    id?: number
+    name?: string
+    message?: string
+  } | null
+  error: {
+    errorType?: string
+    message: string
+  } | null
+}
+
+export async function signupUser(formData: FormData) {
+  const name = formData.get('name') as string
+  const fullName = formData.get('fullName') as string
+  const password = formData.get('password') as string // 비밀번호는 요청에 포함
+  const phoneNumber = formData.get('phoneNumber') as string
+  const studentId = formData.get('studentId') as string
+  const email = formData.get('email') as string
+
+  const requestBody: SignupRequestBody = {
+    name,
+    fullName,
+    password, // 비밀번호를 요청 본문에 포함
+    phoneNumber,
+    studentId,
+    email
+  }
+
+  // 간단한 유효성 검사 (필요에 따라 더 상세하게)
+  if (!name || !fullName || !password || !phoneNumber || !studentId || !email) {
+    return { error: '모든 필수 정보를 입력해주세요.' }
+  }
+
+  try {
+    const response = await fetch(`${BACKEND_API_URL}/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody)
+    })
+
+    const result: SignupResponse = await response.json() // 실제 응답 구조에 맞춰 타입 정의 필요
+
+    if (!response.ok || result.error) {
+      console.error('Signup failed:', result.error?.message || `HTTP ${response.status}`)
+      return { error: result.error?.message || `회원가입에 실패했습니다. (HTTP ${response.status})` }
+    }
+
+    // 회원가입 성공
+    // 성공 시 특별히 반환할 데이터가 없다면 아래와 같이 처리
+    // 또는 result.data를 활용하여 메시지 등을 반환할 수 있음
+    console.log('Signup successful:', result.data)
+    return { data: result.data || { message: '회원가입 성공' } } // 성공 데이터 반환
+  } catch (error) {
+    console.error('An unexpected error occurred during signup:', error)
+    if (error instanceof SyntaxError) {
+      return { error: '서버 응답을 처리할 수 없습니다. (JSON 파싱 오류)' }
+    }
+    return { error: '회원가입 중 서버 통신 오류가 발생했습니다.' }
+  }
+  // 회원가입 성공 시 리다이렉션은 클라이언트에서 처리하므로 서버 액션에서는 redirect() 호출 안 함
+}
+
 // loginUser 함수는 이전과 거의 동일 (user_info 쿠키 설정 부분 제거)
-export async function loginUser(formData: FormData) {
+export async function loginUser(formData: FormData, redirectTo?: string | null) {
   const name = formData.get('name') as string
   const password = formData.get('password') as string
 
@@ -78,7 +162,7 @@ export async function loginUser(formData: FormData) {
     console.error('An unexpected error occurred during login:', error)
     return { error: '로그인 중 서버 통신 오류가 발생했습니다.' }
   }
-  redirect('/')
+  redirect(redirectTo || '/my-activities') //redirectTo가 있으면 거기로, 없으면 홈으로
 }
 
 export async function logoutUser() {
