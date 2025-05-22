@@ -2,13 +2,8 @@
 
 import { useState, useMemo } from 'react'
 import { Calendar, momentLocalizer, SlotInfo } from 'react-big-calendar'
-import moment from 'moment'
-import 'moment/locale/ko'
 import { mockReservations } from '@/lib/mockData'
 import './styles.css'
-
-moment.locale('ko')
-const localizer = momentLocalizer(moment)
 
 interface Reservation {
   id: string
@@ -43,9 +38,7 @@ export default function FacilitiesPage() {
         timeSlotWrapper: (props: any) => (
           <div
             {...props}
-            className={`${props.className} ${
-              new Date(props.value).getMinutes() === 30 ? 'half-hour' : ''
-            }`}
+            className={`${props.className} ${new Date(props.value).getMinutes() === 30 ? 'half-hour' : ''}`}
           />
         )
       },
@@ -58,23 +51,17 @@ export default function FacilitiesPage() {
   )
 
   return (
-    <div className="mx-auto max-w-6xl px-4 md:px-6 lg:px-8 py-4 md:py-6">
+    <div className="mx-auto max-w-6xl px-4 py-4 md:px-6 md:py-6 lg:px-8">
       <div className="mb-6 md:mb-8">
-        <h1 className="mb-3 md:mb-4 text-xl md:text-2xl font-bold">
-          시설 예약
-        </h1>
-        <p className="text-[13px] text-gray-600">
-          동아리방 사용 시간을 예약할 수 있습니다.
-        </p>
+        <h1 className="mb-3 text-xl font-bold md:mb-4 md:text-2xl">시설 예약</h1>
+        <p className="text-[13px] text-gray-600">동아리방 사용 시간을 예약할 수 있습니다.</p>
       </div>
 
       <div className="rounded-lg border bg-white p-4 md:p-6">
-        <div className="mb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="mb-4 flex flex-col justify-between gap-4 md:flex-row md:items-center">
           <div className="space-y-1">
             <h2 className="text-[15px] font-medium">예약 현황</h2>
-            <p className="text-[13px] text-gray-500">
-              빈 시간대를 클릭하여 예약할 수 있습니다
-            </p>
+            <p className="text-[13px] text-gray-500">빈 시간대를 클릭하여 예약할 수 있습니다</p>
           </div>
           <div className="flex flex-wrap gap-3 text-[13px]">
             <div className="flex items-center gap-2">
@@ -90,7 +77,7 @@ export default function FacilitiesPage() {
 
         <div className="h-[600px] md:h-[700px]">
           <Calendar
-            localizer={localizer}
+            localizer={null}
             events={reservations}
             startAccessor="start"
             endAccessor="end"
@@ -102,14 +89,9 @@ export default function FacilitiesPage() {
             min={new Date(0, 0, 0, 9, 0, 0)} // 오전 9시
             max={new Date(0, 0, 0, 22, 0, 0)} // 오후 10시
             formats={{
-              timeGutterFormat: (date, culture, localizer) =>
-                localizer.format(date, 'HH:mm', culture),
+              timeGutterFormat: (date, culture, localizer) => localizer.format(date, 'HH:mm', culture),
               eventTimeRangeFormat: ({ start, end }, culture, localizer) =>
-                `${localizer.format(start, 'HH:mm', culture)} - ${localizer.format(
-                  end,
-                  'HH:mm',
-                  culture
-                )}`
+                `${localizer.format(start, 'HH:mm', culture)} - ${localizer.format(end, 'HH:mm', culture)}`
             }}
             className="text-[13px] md:text-[14px]"
           />
