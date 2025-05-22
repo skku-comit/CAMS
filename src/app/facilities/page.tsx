@@ -2,8 +2,11 @@
 
 import { useState, useMemo } from 'react'
 import { Calendar, momentLocalizer, SlotInfo } from 'react-big-calendar'
+import moment from 'moment'
 import { mockReservations } from '@/lib/mockData'
 import './styles.css'
+
+const localizer = momentLocalizer(moment)
 
 interface Reservation {
   id: string
@@ -77,7 +80,7 @@ export default function FacilitiesPage() {
 
         <div className="h-[600px] md:h-[700px]">
           <Calendar
-            localizer={null}
+            localizer={localizer}
             events={reservations}
             startAccessor="start"
             endAccessor="end"
