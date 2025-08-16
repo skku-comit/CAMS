@@ -13,10 +13,8 @@ const navigation = [
   //
   { name: '홈', href: '/', icon: '🏠' },
   { name: '내 활동', href: '/my-activities', icon: '📋' },
-  { name: '개설 현황', href: '/courses', icon: '📚' },
-  { name: '시설 예약', href: '/facilities', icon: '🏢' },
-  { name: '도서 대출', href: '/books', icon: '📖' },
-  { name: '공지사항', href: '/notices', icon: '📢' }
+  { name: '스터디', href: '/courses', icon: '📚' },
+  { name: '도서 조회', href: '/books', icon: '📖' }
 ]
 
 interface SidebarProps {
